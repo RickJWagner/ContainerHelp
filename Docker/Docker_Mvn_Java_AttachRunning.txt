@@ -1,0 +1,24 @@
+
+----------------------------------- The Dockerfile that made a nice, repeatable environment.  JPT is in the local directory 'EriksApps' ------------------------------
+
+FROM maven:3.5.0-jdk-8
+
+RUN mkdir -p /EriksBook
+WORKDIR /EriksBook
+
+COPY ./EriksApps /EriksBook
+
+CMD ["/bin/sh"]
+
+---------------------------- Some notes on how to run the docker image.  Note that I skipped a few steps, this could be made more efficient with more scripting in the Dockerfile ---------------------------
+
+- Make Dockerfile for JDK8, Maven, Eriks artifacts
+- Make dockerfile:  docker build -t eriksbook .
+- Run the file: docker run -it eriksbook
+- Open another window:  docker exec -it "ID-of-container-from-docker-ps" bash
+- Run init from one of the windows.
+- Commit the changes (after the init).  docker commit (container-id-from-docker-ps) newimagename.  This will provide an image that has the maven updates applied, making a faster startup time.
+- Now using 2 of the command prompts opened with 'exec', run the web app / load cycles.
+
+
+
